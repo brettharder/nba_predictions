@@ -17,9 +17,10 @@ def getPlayerData(player_first_name, player_last_name,years):
     """
     page = 'https://www.basketball-reference.com/players/h/'
 
-    # grab HTML table from webpage TODO: add in asserts where player not found / iterate up a few digits to
-    # check if player is found
-    page = page + f'{player_last_name[0:5].lower()}{player_first_name[0:2].lower()}01/gamelog/{years}'
+    # grab HTML table from webpage TODO: add in asserts where player not found
+    # or iterate up a few digits to check if player is found
+    page = page + f'{player_last_name[0:5].lower()}'\
+        f'{player_first_name[0:2].lower()}01/gamelog/{years}'
 
     tables = pd.read_html(page)
 

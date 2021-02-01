@@ -32,7 +32,7 @@ def parse_args(args):
         dest='player_first_name',
         type=str,
         required=True,
-        default='James'
+        default='James',
         help=(
             'Player first name'
         )
@@ -43,7 +43,7 @@ def parse_args(args):
         dest='player_last_name',
         type=str,
         required=True,
-        default='Harden'
+        default='Harden',
         help=(
             'Player last name'
         )
