@@ -15,10 +15,9 @@ import os
 import pandas as pd
 import requests
 import bs4
-print(
-    os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','..','data'))
-)
+
 from nba_predictions.player_scrape import getPlayerData
+from nba_predictions.feature_engineer import feature_engineer
 
 logging.basicConfig(level = logging.INFO)
 logger = logging.getLogger('nba_predictions')
@@ -115,12 +114,43 @@ def get_parser():
         'Feature Engineer'
     )
     parser_feature_engineer= subparsers.add_parser(
-        'feature-engineer', help='Feature engineer given output of parse_data',
+        'feature-engineer', help='Feature engineer given output of parse-data',
         formatter_class=def_formatter, description=feature_engineer_desc)
     
     # ------------------------------------------
     # options for feature engineer parser - TODO
     # ------------------------------------------
+    parser_feature_engineer.add_argument(
+        '--player-data',
+        dest='player_data',
+        type=str,
+        required=True,
+        default='',
+        help=(
+            'Path to csv resulting from parse-data runner'
+        )
+    )
+
+    parser_feature_engineer.add_argument(
+        '--lookback-games',
+        dest='lookback_games',
+        type=int,
+        required=False,
+        default=10,
+        help=(
+            'Number of games to lookback to create features'
+        )
+    )    
+
+    parser_feature_engineer.add_argument(
+        '--output-dir',
+        dest='output_dir',
+        type=str,
+        default=os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','..','data')),
+        required=False,
+        help=('Directory in which to save feature engineered data as a csv. Default will ~/data in root dir of this package')
+    )
+
 
     # --------------------------
     # mode3 parser - train_model
@@ -181,10 +211,26 @@ def main():
             if args.output_dir:
                 if os.path.exists(args.output_dir):
                     df_games.to_csv(
-                        os.path.join(args.output_dir,f'{args.player_first_name}_{args.player_last_name}_{"_".join(args.years)}.csv')
+                        os.path.join(args.output_dir,f'{args.player_first_name}_{args.player_last_name}_{"_".join(args.years)}.csv'),
+                        index=False
                     )                    
         else:
-            print(f'hmm no such folder exists: {args.output_dir} \n please specify an existing directory..')
+            logger.info(f'hmm no such folder exists: {args.output_dir} \n please specify an existing directory..')
+
+    if mode == 'feature-engineer':
+        if os.path.exists(args.output_dir):
+            logger.info(f'Starting feature engineering ... ')
+
+            df_feat = feature_engineer(args.player_data)
+
+            if args.output_dir:
+                if os.path.exists(args.output_dir):
+                    df_feat.to_csv(
+                        args.player_data.replace('.csv','_feature_engineered.csv'),
+                        index=False
+                    )
+        else:
+            logger.info(f'hmm no such folder exists: {args.output_dir} \n please specify an existing directory..')
 
 def run():
     main()
