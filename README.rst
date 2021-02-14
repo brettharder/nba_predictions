@@ -26,6 +26,8 @@ Assuming you have Docker run the following steps to create our image and run a c
     sh build_image.sh
     sh run_container.sh
 
+In the container navigate to ``app/nba_predictions/`` and run ``pip3 install .``. 
+
 
 Note: After this initial setup you can exit and respin a new container anytime by using `sh run_container.sh`.
 Once in the container the package will be installed and ready to use! 
@@ -116,7 +118,7 @@ E.g. Run feature engineering on James Harden data pulled above.
 
     nba_predictions \
     feature-engineer \
-    --player-data $(pwd)/../data/Lebron_James_2018_2019_2020.csv
+    --player-data $(pwd)/../data/James_Harden_2018_2019_2020.csv
 
 
 
