@@ -56,7 +56,7 @@ Currently, main functionality for this package can be called through `/src/runne
 argparser to allow for commandline args. This is added as an entrypoint to setup.py and setup.cfg
 to allow for users to easily call the package. 
 
-The main modes for this package are `parse-player-data`, `feature-engineer`, `train-model`, and `predict`. 
+The main modes for this package are ``parse-player-data``, ``feature-engineer``, ``train-model``, and ``predict``. 
 Each of which can be run sequentially to build a model and make predictions for a given players points 
 per game. 
 
@@ -75,7 +75,7 @@ Parse Player Data
 -----------------
 
 Parsing player data hits https://www.basketball-reference.com/ and will save a csv of game logs for a given number of 
-years for a player. The data will be saved in `./data/`, or a directory of the user's choosing. 
+years for a player. The data will be saved in ``./data/``, or a directory of the user's choosing. 
 
 E.g. Here we pull 2018-2020 data for James Harden
 
@@ -123,7 +123,7 @@ E.g. Run feature engineering on James Harden data pulled above.
 Train Model
 -----------
 
-TODO... for now a test script trains and evaluates a model -- `/scripts/xgb_model_test.py`
+TODO... for now a test script trains and evaluates a model ``/scripts/xgb_model_test.py``
 
 Predict
 -------
