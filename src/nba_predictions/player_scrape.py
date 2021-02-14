@@ -63,7 +63,7 @@ def getPlayerData(player_first_name, player_last_name,years):
         #print('No data found please double check input player names and years')
 
 # Example
-player_first_name = 'Ben'
-player_last_name = 'Simmons'
-df_games = getPlayerData(player_first_name,player_last_name,[2020])
-df_games.head(50)
+# player_first_name = 'Ben'
+# player_last_name = 'Simmons'
+# df_games = getPlayerData(player_first_name,player_last_name,[2020])
+# df_games.head(50)

@@ -1,11 +1,11 @@
 """
-Runner for making nba predictions for a player TODO: This will be the main runner for the project
+Runner for making nba predictions for a player
 
 Modes:
-  1. parse_data: will pull player data over specified years (seasons) and save to a local dir
-  2. feature_engineer: given output of `parse_data` will build a table that can be input into 
+  1. parse-data: will pull player data over specified years (seasons) and save to a local dir
+  2. feature-engineer: given output of `parse_data` will build a table that can be input into 
      a model 
-  3. train_model: will run a pipeline to train a model predicting points per game 
+  3. train-model: will run a pipeline to train a model predicting points per game 
   4. predict: given a model and opponent, will make a prediction of points per game 
 """ 
 import argparse
@@ -15,7 +15,9 @@ import os
 import pandas as pd
 import requests
 import bs4
-
+print(
+    os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','..','data'))
+)
 from nba_predictions.player_scrape import getPlayerData
 
 logging.basicConfig(level = logging.INFO)
@@ -59,7 +61,7 @@ def get_parser():
         'Parse player data'
     )
     parser_parse_data= subparsers.add_parser(
-        'parse_data', help='Parse player data',
+        'parse-data', help='Parse player data',
         formatter_class=def_formatter, description=parse_data_desc)
 
     # --------------------------------------------------
@@ -95,12 +97,15 @@ def get_parser():
         help=('Input years as follows: --years 2018 2019 2020')
     )
 
+    # Default output-dir is the root directory of this repo in the data folder, which is included 
+    # in the .gitignore
     parser_parse_data.add_argument(
-        '--output_dir',
+        '--output-dir',
         dest='output_dir',
         type=str,
+        default=os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','..','data')),
         required=False,
-        help=('Directory in which to save player data as a csv')
+        help=('Directory in which to save player data as a csv. Default will ~/data in root dir of this package')
     )    
 
     # -------------------------------
@@ -110,7 +115,7 @@ def get_parser():
         'Feature Engineer'
     )
     parser_feature_engineer= subparsers.add_parser(
-        'feature_engineer', help='Feature engineer given output of parse_data',
+        'feature-engineer', help='Feature engineer given output of parse_data',
         formatter_class=def_formatter, description=feature_engineer_desc)
     
     # ------------------------------------------
@@ -124,7 +129,7 @@ def get_parser():
         'Train Model'
     )
     parser_train_model= subparsers.add_parser(
-        'train_model', help='Train model given output of feature_engineer',
+        'train-model', help='Train model given output of feature_engineer',
         formatter_class=def_formatter, description=train_model_desc)
     
     # -------------------------------------
@@ -161,16 +166,25 @@ def main():
     args = parser.parse_args(sys.argv[1:])
     
     mode = args.command
-    print(mode)
 
-    # df_games = getPlayerData(
-    #     args.player_first_name,
-    #     args.player_last_name,
-    #     args.years
-    # )
-    # print(df_games)
+    if mode == 'parse-data':
+        # Check if output-dir specified
+        if os.path.exists(args.output_dir):
+            logger.info(f'Starting parse data for {args.player_first_name} {args.player_last_name} in {args.years}')
 
-    print(os.getcwd())
+            # Get player data
+            df_games = getPlayerData(
+                args.player_first_name,
+                args.player_last_name,
+                args.years
+            )
+            if args.output_dir:
+                if os.path.exists(args.output_dir):
+                    df_games.to_csv(
+                        os.path.join(args.output_dir,f'{args.player_first_name}_{args.player_last_name}_{"_".join(args.years)}.csv')
+                    )                    
+        else:
+            print(f'hmm no such folder exists: {args.output_dir} \n please specify an existing directory..')
 
 def run():
     main()

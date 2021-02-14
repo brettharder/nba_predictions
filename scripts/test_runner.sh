@@ -1,5 +1,6 @@
 nba_predictions \
-parse_data \
+parse-data \
 --player-first-name James \
 --player-last-name Harden \
---years 2019 2020 
+--years 2019 2020 \
+#--output-dir /Users/brettharder/Documents/harden_project/nba_predictionss/data/
