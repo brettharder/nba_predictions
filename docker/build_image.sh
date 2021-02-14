@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build -t nba -f ./Dockerfile ../
+docker build --no-cache -t nba -f ./Dockerfile ../

@@ -22,4 +22,35 @@ df_test = df.iloc[180:,:]
 
 
 xg_reg = xgb.XGBRegressor(objective ='reg:linear', colsample_bytree = 0.3, learning_rate = 0.1,
-                max_depth = 5, alpha = 10, n_estimators = 10)
+                max_depth = 10, alpha = 10, n_estimators = 100)
+
+xg_reg.fit(df_train.drop(['pts'],axis=1),df_train['pts'])
+preds = xg_reg.predict(df_test.drop(['pts'],axis=1))
+preds
+np.array(df_test['pts'])
+
+preds - np.array(df_test['pts'])
+
+# -----------------------------------------
+# Quickly see how a binary prediction works
+# -----------------------------------------
+df['30+'] = np.where(
+    df['pts'] >= 30, 1, 0
+)
+df
+
+df_train = df.iloc[0:150,:]
+df_test = df.iloc[150:,:]
+
+model = xgb.XGBClassifier(objective ='binary:logistic', max_depth = 10, n_estimators = 100)
+
+model.fit(df_train.drop(['pts','30+'],axis=1),df_train['30+'])
+preds = model.predict_proba(df_test.drop(['pts','30+'],axis=1))[:,1]
+preds
+labels = np.where(preds > .5, 1, 0)
+labels
+
+labels - np.array(df_test['30+'])
+
+
+

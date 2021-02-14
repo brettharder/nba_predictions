@@ -1,10 +1,9 @@
-from ubuntu:latest
+from ubuntu:20.04
 
-USER root
+RUN apt-get update && apt-get -y install sudo
 
-sudo apt-get update
-
-sudo apt install python3.8
-sudo apt-get -y install python3-pip
-
-pip3 install virtualenvwrapper
+RUN sudo apt-get update
+# Installing python3.8
+RUN apt-get install -y python3
+RUN apt-get install -y python3-pip
+RUN sudo apt install git

@@ -36,7 +36,6 @@ lxml==4.6.2
 MarkupSafe==1.1.1
 matplotlib==3.3.3
 murmurhash==1.0.5
--e git+https://github.com/brettharder/nba_predictions.git@360dfbba80cbf7700cc8e99645723f21f19750ec#egg=nba_predictions
 numpy==1.19.5
 packaging==20.8
 pandas==1.2.1
