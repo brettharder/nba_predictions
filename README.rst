@@ -18,12 +18,14 @@ docker installed https://docs.docker.com/get-docker/.
 
 Assuming you have Docker run the following steps to create our image and run a container:
 
+
 .. code:: shell
 
     git clone https://github.com/brettharder/nba_predictions.git
     cd nba_predictions/docker
     sh build_image.sh
     sh run_container.sh
+
 
 Note: After this initial setup you can exit and respin a new container anytime by using `sh run_container.sh`.
 Once in the container the package will be installed and ready to use! 
@@ -33,6 +35,7 @@ Via Virtualenv
 
 To install into a virtualenv do the following steps in a directory where you wish to run the package:
 
+
 .. code:: shell
 
     python3 -m venv venv
@@ -40,6 +43,7 @@ To install into a virtualenv do the following steps in a directory where you wis
     git clone https://github.com/brettharder/nba_predictions.git
     cd nba_predictions
     pip3 install .
+
 
 Note: to do a regular install on your machine, skip the first two steps above. This is not guaranteed
 to work however and will be dependant on your machine and python installation.  
@@ -57,9 +61,12 @@ Each of which can be run sequentially to build a model and make predictions for 
 per game. 
 
 When the package is installed a user can see help for the package using
+
+
 .. code:: shell
 
     nba_predictions -h
+
 
 Below we go into the 4 differnt modes...
 
@@ -71,6 +78,8 @@ Parsing player data hits https://www.basketball-reference.com/ and will save a c
 years for a player. The data will be saved in `./data/`, or a directory of the user's choosing. 
 
 E.g. Here we pull 2018-2020 data for James Harden
+
+
 .. code:: shell
 
     nba_predictions \
@@ -101,11 +110,14 @@ Perhaps keep data in a more raw state for sequential modelling (LSTM).
 
 
 E.g. Run feature engineering on James Harden data pulled above.
+
+
 .. code:: shell
 
     nba_predictions \
     feature-engineer \
     --player-data $(pwd)/../data/Lebron_James_2018_2019_2020.csv
+
 
 
 Train Model
