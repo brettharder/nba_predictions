@@ -2,8 +2,8 @@
 Runner for making nba predictions for a player
 
 Modes:
-  1. parse-data: will pull player data over specified years (seasons) and save to a local dir
-  2. feature-engineer: given output of `parse_data` will build a table that can be input into 
+  1. parse-player-data: will pull player data over specified years (seasons) and save to a local dir
+  2. feature-engineer: given output of `parse_player_data` will build a table that can be input into 
      a model 
   3. train-model: will run a pipeline to train a model predicting points per game 
   4. predict: given a model and opponent, will make a prediction of points per game 
@@ -53,20 +53,20 @@ def get_parser():
     #     )
     # )
 
-    # -------------------------
-    # mode1 parser - parse_data
-    # -------------------------
-    parse_data_desc = (
+    # --------------------------------
+    # mode1 parser - parse_player_data
+    # --------------------------------
+    parse_player_data_desc = (
         'Parse player data'
     )
-    parser_parse_data= subparsers.add_parser(
-        'parse-data', help='Parse player data',
-        formatter_class=def_formatter, description=parse_data_desc)
+    parser_parse_player_data= subparsers.add_parser(
+        'parse-player-data', help='Parse player data',
+        formatter_class=def_formatter, description=parse_player_data_desc)
 
     # --------------------------------------------------
     # options for mode1 parser - add arguments for mode1
     # --------------------------------------------------
-    parser_parse_data.add_argument(
+    parser_parse_player_data.add_argument(
         '--player-first-name',
         dest='player_first_name',
         type=str,
@@ -77,7 +77,7 @@ def get_parser():
         )
     )
 
-    parser_parse_data.add_argument(
+    parser_parse_player_data.add_argument(
         '--player-last-name',
         dest='player_last_name',
         type=str,
@@ -88,7 +88,7 @@ def get_parser():
         )
     )    
 
-    parser_parse_data.add_argument(
+    parser_parse_player_data.add_argument(
         '--years',
         dest='years',
         nargs='+',
@@ -98,7 +98,7 @@ def get_parser():
 
     # Default output-dir is the root directory of this repo in the data folder, which is included 
     # in the .gitignore
-    parser_parse_data.add_argument(
+    parser_parse_player_data.add_argument(
         '--output-dir',
         dest='output_dir',
         type=str,
@@ -114,7 +114,7 @@ def get_parser():
         'Feature Engineer'
     )
     parser_feature_engineer= subparsers.add_parser(
-        'feature-engineer', help='Feature engineer given output of parse-data',
+        'feature-engineer', help='Feature engineer given output of parse-player-data',
         formatter_class=def_formatter, description=feature_engineer_desc)
     
     # ------------------------------------------
@@ -127,7 +127,7 @@ def get_parser():
         required=True,
         default='',
         help=(
-            'Path to csv resulting from parse-data runner'
+            'Path to csv resulting from parse-player-data runner'
         )
     )
 
@@ -197,7 +197,7 @@ def main():
     
     mode = args.command
 
-    if mode == 'parse-data':
+    if mode == 'parse-player-data':
         # Check if output-dir specified
         if os.path.exists(args.output_dir):
             logger.info(f'Starting parse data for {args.player_first_name} {args.player_last_name} in {args.years}')
