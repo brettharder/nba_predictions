@@ -17,6 +17,13 @@ except VersionConflict:
     print("Error: version of setuptools is too old (<38.3)!")
     sys.exit(1)
 
+entry_points = """
+[console_scripts]
+nba_predictions = nba_predictions.runner:main
+
+[setup_parsers]
+nba_predictions = nba_predictions.runner:get_parser
+"""
 
 if __name__ == "__main__":
     setup(use_pyscaffold=True)
