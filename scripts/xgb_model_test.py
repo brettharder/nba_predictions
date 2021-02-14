@@ -10,8 +10,8 @@ import scipy.stats as stats
 from xgboost import plot_importance
 from sklearn.metrics import mean_squared_error
 
-#f = os.path.join(os.getcwd(),'nba_predictions','data','James_Harden_2018_2019_2020_feature_engineered.csv')
-f = os.path.join(os.getcwd(),'nba_predictions','data','Lebron_James_2018_2019_2020_feature_engineered.csv')
+f = os.path.join(os.getcwd(),'nba_predictions','data','James_Harden_2018_2019_2020_feature_engineered.csv')
+#f = os.path.join(os.getcwd(),'nba_predictions','data','Lebron_James_2018_2019_2020_feature_engineered.csv')
 df = pd.read_csv(f)
 df
 del df['opp']

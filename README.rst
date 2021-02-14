@@ -26,7 +26,7 @@ Assuming you have Docker run the following steps to create our image and run a c
     sh build_image.sh
     sh run_container.sh
 
-In the container navigate to ``app/nba_predictions/`` and run ``pip3 install .``. 
+In the container navigate to ``app/nba_predictions/`` and run ``pip3 -e install .``. 
 
 
 Note: After this initial setup you can exit and respin a new container anytime by using `sh run_container.sh`.
@@ -44,7 +44,7 @@ To install into a virtualenv do the following steps in a directory where you wis
     source venv/bin/activate
     git clone https://github.com/brettharder/nba_predictions.git
     cd nba_predictions
-    pip3 install .
+    pip3 install -e .
 
 
 Note: to do a regular install on your machine, skip the first two steps above. This is not guaranteed
@@ -85,7 +85,7 @@ E.g. Here we pull 2018-2020 data for James Harden
 .. code:: shell
 
     nba_predictions \
-    parse-data \
+    parse-player-data \
     --player-first-name James \
     --player-last-name Harden \
     --years 2018 2019 2020 \
