@@ -1,11 +1,22 @@
 """
 Runner for making nba predictions for a player TODO: This will be the main runner for the project
+
+Modes:
+  1. parse_data: will pull player data over specified years (seasons) and save to a local dir
+  2. feature_engineer: given output of `parse_data` will build a table that can be input into 
+     a model 
+  3. train_model: will run a pipeline to train a model predicting points per game 
+  4. predict: given a model and opponent, will make a prediction of points per game 
 """ 
 import argparse
 import logging
 import sys
 import os
 import pandas as pd
+import requests
+import bs4
+
+from nba_predictions.player_scrape import getPlayerData
 
 logger = logging.getLogger('nba_predictions')
 
@@ -50,24 +61,31 @@ def parse_args(args):
     )
 
     parser.add_argument(
-        '--opponent',
-        dest='opponent',
-        type=str,
-        required=False,
+        '--years',
+        dest='years',
+        nargs='+',
+        required=True,
+        help=('Input years as follows: --years 2018 2019 2020')
     )
 
+    # parser.add_argument(
+    #     '--opponent',
+    #     dest='opponent',
+    #     type=str,
+    #     required=False,
+    # )
 
-    # Add an argument to overall module
-    parser.add_argument(
-        '--optional-overall-argument',
-        dest='optional_overall_argument',
-        type=str,
-        required=False,
-        default='some_default_value',
-        help=(
-            'General argument that you may want to use for all modes'
-        )
-    )
+    # # Add an argument to overall module
+    # parser.add_argument(
+    #     '--optional-overall-argument',
+    #     dest='optional_overall_argument',
+    #     type=str,
+    #     required=False,
+    #     default='some_default_value',
+    #     help=(
+    #         'General argument that you may want to use for all modes'
+    #     )
+    # )
 
     # ------------
     # mode1 parser
