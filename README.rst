@@ -11,6 +11,7 @@ Installation
 ============
 
 ## Docker (recommended)
+
 Make sure Docker is installed on your host machine. If not please visit this link to get 
 docker installed https://docs.docker.com/get-docker/. 
 
@@ -27,6 +28,7 @@ Note: After this initial setup you can exit and respin a new container anytime b
 Once in the container the package will be installed and ready to use! 
 
 ## Via Virtualenv
+
 To install into a virtualenv do the following steps in a directory where you wish to run the package:
 
 .. code:: shell
