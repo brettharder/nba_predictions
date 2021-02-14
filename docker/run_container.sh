@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run -it --rm -v $HOME:$HOME nba
+docker run -it --rm -v $(pwd)/..:/app/nba_predictions nba

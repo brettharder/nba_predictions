@@ -10,16 +10,16 @@ import scipy.stats as stats
 from xgboost import plot_importance
 from sklearn.metrics import mean_squared_error
 
-f = os.path.join(os.getcwd(),'nba_predictions','data','James_Harden_2018_2019_2020_feature_engineered.csv')
+#f = os.path.join(os.getcwd(),'nba_predictions','data','James_Harden_2018_2019_2020_feature_engineered.csv')
+f = os.path.join(os.getcwd(),'nba_predictions','data','Lebron_James_2018_2019_2020_feature_engineered.csv')
 df = pd.read_csv(f)
 df
 del df['opp']
 
 df.shape
 
-df_train = df.iloc[0:180,:]
-df_test = df.iloc[180:,:]
-
+df_train = df.iloc[0:170,:]
+df_test = df.iloc[170:,:]
 
 xg_reg = xgb.XGBRegressor(objective ='reg:linear', colsample_bytree = 0.3, learning_rate = 0.1,
                 max_depth = 10, alpha = 10, n_estimators = 100)
@@ -30,6 +30,8 @@ preds
 np.array(df_test['pts'])
 
 preds - np.array(df_test['pts'])
+
+xg_reg.get_booster().get_score(importance_type="gain")
 
 # -----------------------------------------
 # Quickly see how a binary prediction works
@@ -50,7 +52,7 @@ preds
 labels = np.where(preds > .5, 1, 0)
 labels
 
+np.array(df_test['30+'])
 labels - np.array(df_test['30+'])
 
-
-
+model.get_booster().get_score(importance_type="gain")
