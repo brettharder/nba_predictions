@@ -3,13 +3,14 @@ nba_predictions
 ===============
 
 
-Add a short description here!
+nba_predictions is package that allows one to quickly scrape nba data and 
+model points scored for a given player
 
 
 Description
 ===========
 
-A longer description of your project goes here...
+
 
 
 Note
